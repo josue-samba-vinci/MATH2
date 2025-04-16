@@ -62,7 +62,17 @@
     // cree la matrice identite d'ordre a
     public static Matrice identite(int a)  throws IllegalArgumentException {
     	//TODO
-    	return null;
+    	//UNE MATRICE IDENTITE EST UNE MATRICE AYANT des 1 sur la
+        // des 1 sur la diagonale principale (de haut en bas, de gauche à droite),
+        //et des 0 partout ailleurs.
+        if (a<1)
+            throw new IllegalArgumentException();
+        //CREATION D4UNE MATRICE CARREE D4ORDRE AxA
+        Matrice id = new Matrice(a,a);
+        for (int i = 0; i < a; i++) {
+            id.data[i][i]=1;
+        }
+        return id;
     }
     
     //Cette methode renvoie l'element de la ligne numLigne et de la 
