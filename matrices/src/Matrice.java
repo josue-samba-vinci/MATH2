@@ -6,22 +6,57 @@
     // ce constructeur cree la matrice nulle de genre (a,b)
     public Matrice(int a, int b) throws IllegalArgumentException { 
     	//TODO : Les lignes ci-dessous sont là uniquement pour qu'il n'y ait pas d'erreur. Elles doivent être modifiées
-        nbLignes=1 ;
-        nbColonnes=1 ;
-        data =null ;
+        this.nbLignes = a;
+        this.nbColonnes = b;
+        if (nbLignes < 1 || nbColonnes < 1)
+            throw new IllegalArgumentException();
+        this.data = new double[nbLignes][nbColonnes];
     }
 
     //  Ce constructeur permet de construire la matrice correspondant 
     //  au tableau en parametre. 
     public Matrice(double[][] tab)  throws IllegalArgumentException {
     	//TODO : La ligne suivante est là uniquement pour qu'il n'y ait pas d'erreur. Elle doit être modifiée ou supprimée
-    	this(1,1);
+    	if (tab == null)
+            throw new IllegalArgumentException();
+        if (tab.length == 0)
+            throw new IllegalArgumentException();
+        //3 CAS OU ON VA RENCONTRER UNE EXCEPTION
+        for (int i = 0; i < tab.length; i++) {
+            //LA MATRICE N4EXISTE PAS
+            if (tab[i]==null)
+                throw new IllegalArgumentException();
+            //LA MATRICE NE CONTIENT AUCUN ELEMENT
+            if (tab[i].length==0)
+                throw new IllegalArgumentException();
+            //LA MATRICE N4A PAS LA MEME DIMENSION A CHAQUE LIGNE
+            if (tab[0].length!=tab[i].length)
+                throw new IllegalArgumentException();
+        }
+        this.nbLignes = tab.length;
+        this.nbColonnes = tab[0].length;
+        this.data = new double[nbLignes][nbColonnes];
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[i].length; j++) {
+                data[i][j]= tab[i][j];
+            }
+        }
     }
 
     // constructeur par recopie
     public Matrice(Matrice a)  throws IllegalArgumentException {
-        //TODO : La ligne suivante est là uniquement pour qu'il n'y ait pas d'erreur. Elle doit être modifiée ou supprimée
-    	this(1,1);
+        //ICI IL NE FAUT PAS VERIFIER AUTANT DE CHOSES CAR ON RECOIT UNE MATRICE
+        //EN PARAMETRE DU COUP ELLE A DEJA LES PRECONDITIONS POUR ETRE UNE MATRICE
+        if (a == null)
+            throw new IllegalArgumentException();
+        this.nbLignes = a.nbLignes;
+        this.nbColonnes = a.nbColonnes;
+        this.data = new double[nbLignes][nbColonnes];
+        for (int i = 0; i < a.nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                data[i][j]= a.data[i][j];
+            }
+        }
 	}
 
     // cree la matrice identite d'ordre a
